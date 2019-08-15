@@ -1,3 +1,13 @@
+## Quick Overview
+
+```sh
+npm i -g create-react-app
+git clone https://github.com/jamal382/react-tutorial.git react-tutorial
+cd react-tutorial
+create-react-app .
+npm start
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
