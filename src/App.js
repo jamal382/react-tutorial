@@ -6,7 +6,8 @@ import First from './components/First/First'
 function App() {
   return (
     <div className="App">
-      <First/>
+      <First name='jamal' email='jamal.khan@brotecs.com'/>
+      <First name='Zabir' email='bdxabir@gmail.com'/>
     </div>
   );
 }
