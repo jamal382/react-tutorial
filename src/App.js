@@ -3,8 +3,38 @@ import logo from './logo.svg';
 import './App.css';
 import First from './components/First/First'
 import Counter from './components/Counter/Counter'
+import Example from './components/Example'
+import Books from './components/Books/Books'
+
 
 class App extends Component {
+  state = {
+    books:[
+      {
+        name: 'JavaScript',
+        price: '20',
+        id:1
+      },
+      {
+        name: 'React',
+        price: '33',
+        id:2
+      },
+      {
+        name: 'React Native',
+        price: '48',
+        id:3
+      }
+    ]
+  }
+
+  deleteHandler = (id) => {
+     let newBooks = this.state.books.filter(book => book.id != id)
+      this.setState({
+        books:newBooks
+      })
+  }
+
 
     persons = [
       { name: 'Jamal', email: 'jamal.khan@brotecs.com' },
@@ -13,18 +43,24 @@ class App extends Component {
     ]
   
   render() {
+    let obj = {padding:'30px',textAlign:'right',fontFamily:'Arial',fontSize:'100px'}
     return (
       <div className="App">
-        {
+         <books deleteHandler = { this.deleteHandler.bind(this) } books = {this.state.books} />
+         {
           this.persons.map(
             (people, index) => {
               return (
-                <First name={people.name} email={people.email} />
+                <First key={index} name={people.name} email={people.email} />
               )
             }
           )
         }
         <Counter/>
+        <Example/>
+        <h1 style={{padding:'30px',textAlign:'left',fontFamily:'Arial',fontSize:'100px'}}>Hello Programmers.</h1>
+        <h1 style={obj}> Working with Styles</h1>
+        <Books books={this.state.books}/>
       </div>
     );
   }

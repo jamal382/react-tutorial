@@ -13,10 +13,15 @@ class Counter extends Component {
     }
 
     decrease = () => {
+
+        console.log('pre-decrease::',this.state.count)
+
         this.setState({
             count: this.state.count - 1
-
         })
+
+        console.log('decrease::',this.state.count)
+
         if (this.state.count <= 5) {
             this.setState({
                 color: 'red'
@@ -35,7 +40,9 @@ class Counter extends Component {
         this.setState({
             count: this.state.count + 1
         })
+        console.log('increase:',this.state.count)
         if (this.state.count <= 5) {
+           
             this.setState({
                 color: 'red'
             })
@@ -55,6 +62,7 @@ class Counter extends Component {
             <div>
                 <h1 style={{ color: this.state.color }}>
                 <button onClick={this.decrease}>-</button>
+                {console.log(this.state.count)}
                     {this.state.count}
                 <button onClick={this.increase}>+</button>
                 </h1>
