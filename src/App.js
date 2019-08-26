@@ -46,7 +46,7 @@ class App extends Component {
     let obj = {padding:'30px',textAlign:'right',fontFamily:'Arial',fontSize:'100px'}
     return (
       <div className="App">
-         <books deleteHandler = { this.deleteHandler.bind(this) } books = {this.state.books} />
+       
          {
           this.persons.map(
             (people, index) => {
@@ -60,7 +60,7 @@ class App extends Component {
         <Example/>
         <h1 style={{padding:'30px',textAlign:'left',fontFamily:'Arial',fontSize:'100px'}}>Hello Programmers.</h1>
         <h1 style={obj}> Working with Styles</h1>
-        <Books books={this.state.books}/>
+        <Books deleteHandler = { this.deleteHandler.bind(this) } books = {this.state.books} />
       </div>
     );
   }
