@@ -35,7 +35,23 @@ class App extends Component {
       })
   }
 
+  changeHandler = (name,id) =>{
+    let newbooks = this.state.books.map(book=>{
+      if(id==book.id){
+        return({
+          ...book,
+          name
+        })
+      }
 
+      return book
+    })
+
+    this.setState({
+      books:newbooks
+    })
+
+  }
     persons = [
       { name: 'Jamal', email: 'jamal.khan@brotecs.com' },
       { name: 'Zabir', email: 'bdxabir@gmail.com' },
@@ -60,7 +76,10 @@ class App extends Component {
         <Example/>
         <h1 style={{padding:'30px',textAlign:'left',fontFamily:'Arial',fontSize:'100px'}}>Hello Programmers.</h1>
         <h1 style={obj}> Working with Styles</h1>
-        <Books deleteHandler = { this.deleteHandler.bind(this) } books = {this.state.books} />
+        <Books 
+        changeHandler={this.changeHandler.bind(this)} 
+        deleteHandler = { this.deleteHandler.bind(this) } 
+        books = {this.state.books} />
       </div>
     );
   }
