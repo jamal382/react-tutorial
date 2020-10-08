@@ -1,0 +1,480 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bombardier API",
+    "description": "Bombardier IPPBX API.\n\n There is an Authorization header using HTTP Basic Auth. Use the authorise button below with your supplied username and password that generate your basic auth token.\n",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "{protocol}://{server_url}:{port}/ippbxapi/services",
+      "description": "Stitel Networks LLC",
+      "variables": {
+        "environment": {
+          "enum": [
+            "services"
+          ],
+          "default": "services"
+        },
+        "port": {
+          "enum": [
+            "81"
+          ],
+          "default": "81"
+        },
+        "protocol": {
+          "enum": [
+            "http",
+            "https"
+          ],
+          "default": "https"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/extensions": {
+      "get": {
+        "tags": [
+          "Extension"
+        ],
+        "summary": "Get extension List",
+        "description": "Get extension list with their current status\n",
+        "operationId": "getExtensions",
+        "responses": {
+          "200": {
+            "description": "Get extensions with their current status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Extensions"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/trunk_list": {
+      "get": {
+        "tags": [
+          "Trunk"
+        ],
+        "summary": "Get trunk list with account",
+        "description": "Get extension list with their current status\n",
+        "operationId": "getTrunkList",
+        "responses": {
+          "200": {
+            "description": "Get trunk list with account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrunkList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/trunk_status": {
+      "get": {
+        "tags": [
+          "Trunk"
+        ],
+        "summary": "Get trunk status",
+        "description": "Get extension list with their current status\n",
+        "operationId": "getTrunkStatus",
+        "responses": {
+          "200": {
+            "description": "Get trunk status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrunkStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    },
+    "/get_cdr": {
+      "post": {
+        "tags": [
+          "Calls"
+        ],
+        "summary": "Get all call details record",
+        "description": "Get all Call details record within specific time \n",
+        "operationId": "getCdr",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/getCdrPostValue"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Get all call details record within time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getCdr"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Authentication"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Extensions": {
+        "type": "array",
+        "description": "An array of extensions objects.",
+        "example": {
+          "status": true,
+          "res": [
+            {
+              "id": 86,
+              "type": "extension",
+              "name": "Ext-10",
+              "surname": null,
+              "extension": "10",
+              "status": "UNKNOWN",
+              "technology": "IAX2"
+            },
+            {
+              "id": 92,
+              "type": "extension",
+              "name": "Ext-11",
+              "surname": null,
+              "extension": "11",
+              "status": "UNKNOWN",
+              "technology": "SIP"
+            },
+            {
+              "id": 89,
+              "type": "extension",
+              "name": "Ext-12",
+              "surname": null,
+              "extension": "12",
+              "status": "UNKNOWN",
+              "technology": "SCCP"
+            },
+            {
+              "id": 95,
+              "type": "extension",
+              "name": "Ext-13",
+              "surname": null,
+              "extension": "13",
+              "status": "UNKNOWN",
+              "technology": "SIP"
+            }
+          ]
+        },
+        "items": {
+          "$ref": "#/components/schemas/Extensions"
+        }
+      },
+      "TrunkList": {
+        "type": "array",
+        "description": "An array of Trunk List objects.",
+        "example": {
+          "status": true,
+          "res": [
+            {
+              "id": 10,
+              "name": "Satellite_Secure_US",
+              "type": 0,
+              "host": "89.255.223.174",
+              "port": "5060",
+              "technology": "SIP",
+              "accounts": []
+            },
+            {
+              "id": 14,
+              "name": "GoDirect_US_Ground_Server",
+              "type": 0,
+              "host": "89.255.223.174",
+              "port": "4569",
+              "technology": "IAX2",
+              "accounts": [
+                {
+                  "id": 439,
+                  "name": "815422456",
+                  "provider": 14,
+                  "port": "4569",
+                  "speeddial": "3",
+                  "username": "815422456",
+                  "password": "123",
+                  "allow_in": 1,
+                  "contact_extension": "",
+                  "numbers": [],
+                  "did": "1",
+                  "options": [
+                    {
+                      "key": "172",
+                      "value": "DefaultIncomingRule"
+                    },
+                    {
+                      "key": "177",
+                      "value": "all"
+                    },
+                    {
+                      "key": "178",
+                      "value": "speex,gsm"
+                    },
+                    {
+                      "key": "227",
+                      "value": "asreceived"
+                    },
+                    {
+                      "key": "231",
+                      "value": "yes"
+                    },
+                    {
+                      "key": "237",
+                      "value": "yes"
+                    },
+                    {
+                      "key": "240",
+                      "value": "friend"
+                    }
+                  ],
+                  "enable_cid": 1,
+                  "cid_number": "",
+                  "cid_name": "",
+                  "cid_appexten": 0,
+                  "force_cid": 0,
+                  "clir": 0,
+                  "location": 0,
+                  "area_code": "",
+                  "prefix_policy": 0,
+                  "prefix_format": 0,
+                  "fax_context": 0
+                }
+              ]
+            }
+          ]
+        },
+        "items": {
+          "$ref": "#/components/schemas/TrunkList"
+        }
+      },
+      "TrunkStatus": {
+        "type": "array",
+        "description": "An array of Trunk List objects.",
+        "example": {
+          "status": true,
+          "res": {
+            "online": [
+              {
+                "id": 438,
+                "name": "SIP/13212051558",
+                "technology": 1,
+                "key": 437,
+                "msns": [
+                  ""
+                ],
+                "did": 1,
+                "rule": 2,
+                "speeddial": "2*",
+                "order": 481,
+                "trunk": 1,
+                "enable_cid": 1,
+                "cid_list": [
+                  ""
+                ],
+                "cid_number": "",
+                "cid_name": "",
+                "cid_appexten": 0,
+                "force_cid": 0,
+                "clir": 0,
+                "location": 0,
+                "area_code": "",
+                "prefix_policy": 0,
+                "prefix_format": 0,
+                "fax_context": 0
+              }
+            ],
+            "offline": [
+              {
+                "id": 374,
+                "name": "LCR/misdn",
+                "technology": 1,
+                "key": 373,
+                "msns": [
+                  ""
+                ],
+                "did": 1,
+                "rule": 2,
+                "speeddial": "1*",
+                "order": 113,
+                "trunk": 1,
+                "enable_cid": 1,
+                "cid_list": [
+                  ""
+                ],
+                "cid_number": "",
+                "cid_name": "",
+                "cid_appexten": 0,
+                "force_cid": 0,
+                "clir": 0,
+                "location": 1,
+                "area_code": "",
+                "prefix_policy": 0,
+                "prefix_format": 0,
+                "fax_context": 0
+              },
+              {
+                "id": 440,
+                "name": "IAX2/815422456",
+                "technology": 2,
+                "key": 439,
+                "msns": [
+                  ""
+                ],
+                "did": 1,
+                "rule": 2,
+                "speeddial": "3*",
+                "order": 485,
+                "trunk": 1,
+                "enable_cid": 1,
+                "cid_list": [
+                  ""
+                ],
+                "cid_number": "",
+                "cid_name": "",
+                "cid_appexten": 0,
+                "force_cid": 0,
+                "clir": 0,
+                "location": 0,
+                "area_code": "",
+                "prefix_policy": 0,
+                "prefix_format": 0,
+                "fax_context": 0
+              }
+            ]
+          }
+        },
+        "items": {
+          "$ref": "#/components/schemas/TrunkStatus"
+        }
+      },
+      "getCdr": {
+        "type": "array",
+        "description": "An array of CDR List objects.",
+        "example": {
+          "status": true,
+          "res": []
+        },
+        "items": {
+          "$ref": "#/components/schemas/getCdr"
+        }
+      },
+      "Authentication": {
+        "type": "object",
+        "example": {
+          "status": false,
+          "error": "Unauthorized"
+        },
+        "items": {
+          "$ref": "#/components/schemas/Authentication"
+        }
+      },
+      "getCdrPostValue": {
+        "required": [
+          "end",
+          "start"
+        ],
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "integer",
+            "description": "UTC timestamp of start time"
+          },
+          "end": {
+            "type": "integer",
+            "description": "UTC timestamp of end time"
+          }
+        },
+        "example": {
+          "start": 1601540985,
+          "end": 1601547333
+        }
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
